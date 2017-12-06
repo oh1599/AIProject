@@ -8,8 +8,8 @@ public class LinearRegression
 {
 	private final double LEARNING_RATE = 0.00018;
 
-	private int num_TrainingSet;
-	private int num_Feature;
+	private int num_TrainingSet;//트레이닝세트의 개수
+	private int num_Feature;//특징의 수
 
 	private double[][] x;
 	private double[] theta;
@@ -19,9 +19,11 @@ public class LinearRegression
 
 	public LinearRegression() throws FileNotFoundException 
 	{
-		initialize();
+		initialize();//생성자에 파일을 읽어들이는 함수 호출
 	}
-
+	
+	//파일을 읽은 후에 피처의 수와 트레이닝세트의 수를 변수에 저장해주고
+	//파일에서 읽어들인 변수값들을 저장한다.
 	public void initFile() throws FileNotFoundException 
 	{
 		File file = new File("src/linearregression/data.txt");
@@ -52,12 +54,15 @@ public class LinearRegression
 		}
 	}
 
+	//생성자에서 호출하는 함수로
+	//파일을 읽어들이고 세타값으 초기화한다.
 	private void initialize() throws FileNotFoundException
 	{
 		initFile();
 		initTheta();
 	}
 
+	//세타값들을 초기화해준다.
 	public void initTheta() 
 	{
 		theta = new double[num_Feature + 1];
@@ -66,7 +71,8 @@ public class LinearRegression
 			theta[i] = 0;
 		}
 	}
-
+	
+	//가설값을 return 해주는 함수이다 h
 	public double getHypothesis(int nth) 
 	{
 		double sum = 0;
@@ -76,7 +82,8 @@ public class LinearRegression
 		}
 		return sum;
 	}
-
+	
+	//cost값을 계산하여 return 해주는 함수
 	public double getCost() 
 	{
 		double sum = 0;
@@ -88,6 +95,8 @@ public class LinearRegression
 		return sum;
 	}
 
+	//Gradient Descent를 하기위해서는 각 theta별로 편미분을 하여야한다.
+	//해당 theta 의 편미분값을 return 해준다
 	public double getPartialDerivative(int nthFeature) 
 	{
 		double sum = 0;
@@ -99,6 +108,7 @@ public class LinearRegression
 		return sum;
 	}
 
+	//Gradient Descent를 해주고 난 후에 theta 값을 갱신해주는 함수
 	public void updateTheta() 
 	{
 		double[] temp = new double[num_Feature + 1];
@@ -112,6 +122,8 @@ public class LinearRegression
 		}
 	}
 
+	//Gradient Descent를 수행해주는 함수 updateTheta를 해주기전과 해준 후의
+	//cost 값을 비교하여 후의 cost값이 더 높을때까지 Gradient Descent를 수행한다.
 	public void gradientDescent() 
 	{
 		int iter = 0;
@@ -128,6 +140,7 @@ public class LinearRegression
 		} while (prevCost > nextCost);
 	}
 
+	//Gradient Descent를 수행해주고 난 후의 theta값들을 출력해주는 함수
 	public void printResult() 
 	{
 		for (int i = 0; i <= num_Feature; i++) 

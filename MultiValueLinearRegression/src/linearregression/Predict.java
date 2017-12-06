@@ -14,6 +14,7 @@ public class Predict
 	private double THETA2 = -0.218162;
 	private double THETA3 = 0.020956;
 	Team[] team;
+	//Gradient Descent를 진행후 cost값이 가장 낮았던 theta값들을 변수에 지정해준다.
 	
 	public Predict() throws FileNotFoundException
 	{
@@ -28,6 +29,7 @@ public class Predict
 		num_Feature = scanner.nextInt();
 		num_TrainingSet = scanner.nextInt();
 		team = new Team[num_TrainingSet];
+		//input 데이터들의 predict값을 변수에 저장한다.
 		for (int i = 0; i < num_TrainingSet; i++) 
 		{
 			double x1 = scanner.nextDouble();
@@ -39,6 +41,7 @@ public class Predict
 			team[i].point =(THETA0 + THETA1*x1 + THETA2*x2 + THETA3*x3);
 		}
 	}
+	//predict값이 높은순으로 정렬을 한후 결과를 출력해준다.
 	public void printResult()
 	{
 		Arrays.sort(team);
